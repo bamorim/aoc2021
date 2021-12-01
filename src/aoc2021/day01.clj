@@ -9,10 +9,10 @@
        (map edn/read-string)))
 
 (defn count-increments [numbers]
-  (let
-   [reducer (fn [[count last] current]
-              [(if (and (not (nil? last)) (> current last)) (+ count 1) count) current])]
-    (nth (reduce reducer [0, nil] numbers) 0)))
+  (->> numbers
+       (partition 2 1)
+       (filter (fn [[a b]] (> b a)))
+       (count)))
 
 (def part-1 count-increments)
 
