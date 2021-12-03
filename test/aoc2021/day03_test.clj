@@ -28,13 +28,13 @@
     (is (=
          [1 0 0 1]
          (SUT/most-common-per-digit [[1 0 0 1]])))
-     (is (=
-          [1 0 0 1]
-          (SUT/most-common-per-digit 
-           [[1 1 1 1]
-            [1 0 0 1]
-            [0 0 0 0]])))
-     (is (= [1] (SUT/most-common-per-digit [[1] [0]])))))
+    (is (=
+         [1 0 0 1]
+         (SUT/most-common-per-digit
+          [[1 1 1 1]
+           [1 0 0 1]
+           [0 0 0 0]])))
+    (is (= [1] (SUT/most-common-per-digit [[1] [0]])))))
 
 (deftest bit-array-to-number
   (testing "Returns the number represented by the received bits"
