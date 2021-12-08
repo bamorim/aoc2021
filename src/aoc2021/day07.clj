@@ -12,8 +12,8 @@
    (reduce +)))
 
 (defn find-min-cost [cost-fn input]
-  (apply min 
-         (map 
+  (apply min
+         (map
           #(fuel-cost cost-fn input %1)
           (range (apply min input) (apply max input)))))
 
