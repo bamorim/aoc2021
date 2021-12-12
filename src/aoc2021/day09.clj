@@ -3,20 +3,19 @@
    [clojure.string :as str]
    [clojure.set :refer [union select difference]]))
 
-(defn parse [input] 
+(defn parse [input]
   (mapv #(mapv read-string (str/split %1 #""))
         (str/split-lines input)))
 
 (defn gen-neighbors [points [x y]]
-  (for 
+  (for
    [[dx dy] [[-1 0] [1 0] [0 -1] [0 1]]
     :let [x' (+ x dx) y' (+ y dy)]
     :when (and
            (>= x' 0)
            (< x' (count (first points)))
            (>= y' 0)
-           (< y' (count points)))
-    ] [x' y']))
+           (< y' (count points)))] [x' y']))
 
 (defn get-point [points [x y]]
   ((points y) x))
@@ -27,16 +26,14 @@
     this-point (get-point points point)
     smaller-neighbors (filter
                        #(>= this-point (get-point points %1))
-                       neighbors)
-    ]
+                       neighbors)]
     (empty? smaller-neighbors)))
 
 (defn find-low-points [points]
   (for
    [x (range (count (first points)))
     y (range (count points))
-    :when (low-point? points [x y])
-    ] [x y]))
+    :when (low-point? points [x y])] [x y]))
 
 (defn part-1 [input]
   (->>
@@ -44,7 +41,6 @@
    find-low-points
    (map #(+ 1 (get-point input %1)))
    (reduce +)))
-
 
 (comment (part-1 (parse (slurp "inputs/sample09.txt"))))
 
@@ -91,4 +87,4 @@
    (take 3)
    (reduce *)))
 
-(comment (part-2 (parse (slurp "inputs/sample09.txt"))) )
+(comment (part-2 (parse (slurp "inputs/sample09.txt"))))

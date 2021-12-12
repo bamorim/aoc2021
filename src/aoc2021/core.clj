@@ -10,9 +10,10 @@
    [aoc2021.day06 :as day06]
    [aoc2021.day07 :as day07]
    [aoc2021.day08 :as day08]
-   [aoc2021.day09 :as day09]))
+   [aoc2021.day09 :as day09]
+   [aoc2021.day10 :as day10]))
 
-(def default-day "9")
+(def default-day "10")
 
 (defn get-day [number]
   (case number
@@ -25,6 +26,7 @@
     7 [day07/parse day07/part-1 day07/part-2]
     8 [day08/parse day08/part-1 day08/part-2]
     9 [day09/parse day09/part-1 day09/part-2]
+    10 [day10/parse day10/part-1 day10/part-2]
     ((println "Invalid day!")
      (System/exit 1))))
 
