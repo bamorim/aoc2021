@@ -44,7 +44,7 @@
 
 (comment (part-1 (parse (slurp "inputs/sample09.txt"))))
 
-(defn basin-for-helper [points boundary height basin]
+(defn basin-for-helper [points boundary basin]
   (let
    [; Add boundary to the current basin
     basin (union boundary basin)
@@ -54,28 +54,11 @@
                (map #(set (gen-neighbors points %1)))
                (reduce union)
                (#(difference %1 basin))
-               (select #(not= 9 (get-point points %1))))
-    ; Get the neighbors with the same height
-    same-height-neighbors (select #(= (get-point points %1) height) neighbors)
-    ; Get the neighbors on the next height
-    next-height-neighbors (select #(= (get-point points %1) (+ 1 height)) neighbors)]
-    ;; Debug things because I'm stuck
-    (println "\n\n---debugging ---")
-    (println "boundary" boundary)
-    (println "height" height)
-    (println "basin" basin)
-    (println "neighbors" neighbors)
-    (println "same-height-neighbors" same-height-neighbors)
-    (println "next-height-neighbors" next-height-neighbors)
-    (cond
-      ; If there are still neighbors on that same height, continue searching there
-      (seq same-height-neighbors) (recur points same-height-neighbors height basin)
-      ; If there are neighbors on the next height, increase height and start searching
-      (seq next-height-neighbors) (recur points next-height-neighbors (+ 1 height) basin)
-      :else basin)))
+               (select #(not= 9 (get-point points %1))))]
+    (if (empty? neighbors) basin (recur points neighbors basin))))
 
 (defn basin-for [points point]
-  (basin-for-helper points #{point} (get-point points point) #{}))
+  (basin-for-helper points #{point} #{}))
 
 (defn part-2 [points]
   (->>
